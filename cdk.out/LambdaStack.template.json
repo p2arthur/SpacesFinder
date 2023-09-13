@@ -68,7 +68,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "2852d56ffff3956203a9e0c9390ebb958e7db2b2bf8d79aa3de4309b98da2b3c.zip"
+     "S3Key": "e7854bdff7beb758bc73281422924ee746e87c253a59371557d55a3e125797ce.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -93,7 +93,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "LambdaStack/HelloLambda/Resource",
-    "aws:asset:path": "asset.2852d56ffff3956203a9e0c9390ebb958e7db2b2bf8d79aa3de4309b98da2b3c",
+    "aws:asset:path": "asset.e7854bdff7beb758bc73281422924ee746e87c253a59371557d55a3e125797ce",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
