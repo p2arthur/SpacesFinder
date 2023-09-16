@@ -1,3 +1,3 @@
-import { handler } from "../src/services/spaces/handler";
+import { handler } from "../src/services/hello";
 
 handler({} as any, {} as any);
