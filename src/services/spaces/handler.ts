@@ -6,18 +6,6 @@ const handler = async (
 ): Promise<APIGatewayProxyResult> => {
   let message: string;
 
-  switch (event.httpMethod) {
-    case "GET":
-      message = "GET Spaces Request";
-      break;
-    case "POST":
-      message = "POST Spaces Request";
-
-      break;
-    default:
-      break;
-  }
-
   const response: APIGatewayProxyResult = {
     statusCode: 200,
     body: JSON.stringify(message),
