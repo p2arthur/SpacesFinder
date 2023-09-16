@@ -1,14 +1,31 @@
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { Context, APIGatewayEvent, APIGatewayProxyResult } from "aws-lambda";
+import { v4 } from "uuid";
 
 const postSpaces = async (
-  event: APIGatewayEvent
+  event: APIGatewayEvent,
+  ddbClient: DynamoDBClient
 ): Promise<APIGatewayProxyResult> => {
-  const response: APIGatewayProxyResult = {
-    statusCode: 200,
-    body: JSON.stringify("POST request"),
-  };
+  const randomId = v4();
 
-  return response;
+  const item = JSON.parse(event.body);
+
+  if (item) {
+    item.id = randomId;
+
+    const result = await ddbClient.send(
+      new PutItemCommand({
+        TableName: process.env.TABLE_NAME,
+        Item: { id: { S: randomId }, location: { S: item.location } },
+      })
+    );
+
+    console.log(result);
+
+    return { statusCode: 201, body: JSON.stringify({ id: randomId }) };
+  } else {
+    console.error("Error on posting item");
+  }
 };
 
 export { postSpaces };
