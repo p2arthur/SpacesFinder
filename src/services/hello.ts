@@ -4,24 +4,18 @@ import {
   Context,
 } from "aws-lambda";
 import { v4 } from "uuid";
-import { S3Client, ListBucketsCommand } from "@aws-sdk/client-s3";
-
-const s3Client = new S3Client({});
 
 async function handler(event: APIGatewayProxyEvent, context: Context) {
-  const command = new ListBucketsCommand({});
-  const listBucketResult = (await s3Client.send(command)).Buckets;
-
   const response: APIGatewayProxyResult = {
     statusCode: 200,
     body: JSON.stringify(
       "Hello from lambda, here are your bucketsss" +
-        JSON.stringify(listBucketResult)
+        JSON.stringify("aksdjlaksdh")
     ),
   };
   console.log(
     "Hello from lambda, here are your bucketsss" +
-      JSON.stringify(listBucketResult)
+      JSON.stringify("listBucketResult")
   );
 
   return response;

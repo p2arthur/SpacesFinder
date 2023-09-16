@@ -1,2 +1,3 @@
-GET https://227ywksgib.execute-api.sa-east-1.amazonaws.com/prod/spaces
+GET https://owhd7fbsyc.execute-api.sa-east-1.amazonaws.com/prod/spaces
 ###
+POST https://owhd7fbsyc.execute-api.sa-east-1.amazonaws.com/prod/spaces
