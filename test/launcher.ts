@@ -1,3 +1,11 @@
-import { handler } from "../src/services/hello";
+import { handler } from "../src/services/spaces/handler";
 
-handler({} as any, {} as any);
+const mamaue = "mamaue";
+
+handler(
+  {
+    httpMethod: "GET",
+    body: JSON.stringify({ location: "Manchester" }),
+  } as any,
+  {} as any
+);

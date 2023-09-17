@@ -22,6 +22,8 @@ const postSpaces = async (
 
     console.log(result);
 
+    console.log("Table Name:" + process.env.TABLE_NAME);
+
     return { statusCode: 201, body: JSON.stringify({ id: randomId }) };
   } else {
     console.error("Error on posting item");
