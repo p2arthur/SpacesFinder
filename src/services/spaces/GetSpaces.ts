@@ -66,9 +66,13 @@ const getSpaces = async ({
         const unmarshalledItem = unmarshall(response.Item);
 
         console.log("Get item by ID Response:", unmarshalledItem);
-        return { statusCode: 201, body: JSON.stringify(unmarshalledItem) };
+        return { statusCode: 200, body: JSON.stringify(unmarshalledItem) };
       } else {
         console.log("Error getting space with the given id");
+        return {
+          statusCode: 400,
+          body: "Bad request: Couldn't get space with the given id",
+        };
       }
     } catch (error) {
       console.error(error);
@@ -81,7 +85,7 @@ const getSpaces = async ({
       const unmarshalledSpaces = response.Items.map((space) => {
         return unmarshall(space);
       });
-      return { statusCode: 201, body: JSON.stringify(unmarshalledSpaces) };
+      return { statusCode: 200, body: JSON.stringify(unmarshalledSpaces) };
     } catch (error) {
       console.error(error);
       return { statusCode: 500, body: "Internal error" };

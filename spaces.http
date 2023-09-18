@@ -2,9 +2,13 @@ GET https://2e0b726te4.execute-api.sa-east-1.amazonaws.com/prod/spaces
 ###
 POST https://2e0b726te4.execute-api.sa-east-1.amazonaws.com/prod/spaces
 content-type: application/json
-
 {
     "location":"London"
 }
-
+###
+PUT https://2e0b726te4.execute-api.sa-east-1.amazonaws.com/prod/spaces?id=343345
+Content-Type: application/json
+{
+    "location":"Vancouver"
+}
 ###
