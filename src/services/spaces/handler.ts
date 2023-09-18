@@ -13,8 +13,7 @@ const handler = async (
     let response: APIGatewayProxyResult;
     switch (event.httpMethod) {
       case "GET":
-        response = await getSpaces(event, ddbClient);
-        console.log("GET Response", JSON.stringify(response));
+        response = await getSpaces({ event, ddbClient });
         return response;
       case "POST":
         response = await postSpaces(event, ddbClient);
