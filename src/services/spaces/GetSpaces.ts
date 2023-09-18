@@ -6,7 +6,7 @@ import {
   ScanCommandOutput,
 } from "@aws-sdk/client-dynamodb";
 import { APIGatewayProxyResult, APIGatewayEvent } from "aws-lambda";
-import { unmarshall, marshall } from "@aws-sdk/util-dynamodb";
+import { unmarshall } from "@aws-sdk/util-dynamodb";
 
 interface GetSpacesHandlerInterface {
   event: APIGatewayEvent;
@@ -22,19 +22,31 @@ const fetchSpacesById = async ({
   ddbClient,
   spaceId,
 }: GetSpacesInnerFunctionInterface): Promise<GetItemCommandOutput> => {
-  const getItemResponse = await ddbClient.send(
-    new GetItemCommand({
-      TableName: process.env.TABLE_NAME,
-      Key: { id: { S: spaceId } },
-    })
-  );
-  return getItemResponse;
+  try {
+    const getItemResponse = await ddbClient.send(
+      new GetItemCommand({
+        TableName: process.env.TABLE_NAME,
+        Key: { id: { S: spaceId } },
+      })
+    );
+    return getItemResponse;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 const scanSpaces = async ({ ddbClient }: GetSpacesInnerFunctionInterface) => {
-  const result = await ddbClient.send(
-    new ScanCommand({ TableName: process.env.TABLE_NAME })
-  );
+  try {
+    const result = await ddbClient.send(
+      new ScanCommand({ TableName: process.env.TABLE_NAME })
+    );
+
+    return result;
+  } catch (error) {
+    console.error("Error scanning spaces:", error);
+    throw error;
+  }
 };
 
 const getSpaces = async ({
@@ -43,29 +55,36 @@ const getSpaces = async ({
 }: GetSpacesHandlerInterface): Promise<APIGatewayProxyResult> => {
   let response: any;
   if (event.queryStringParameters) {
-    const id = event.queryStringParameters.id;
+    const { id } = event.queryStringParameters;
     try {
-      const space = (response = await fetchSpacesById({
+      response = await fetchSpacesById({
         ddbClient,
         spaceId: id,
-      }));
+      });
 
-      if (space.Item) {
-        console.log("Get item by ID Response:", response);
-        return { statusCode: 201, body: JSON.stringify(response) };
+      if (response.Item) {
+        const unmarshalledItem = unmarshall(response.Item);
+
+        console.log("Get item by ID Response:", unmarshalledItem);
+        return { statusCode: 201, body: JSON.stringify(unmarshalledItem) };
       } else {
         console.log("Error getting space with the given id");
       }
     } catch (error) {
       console.error(error);
+      return { statusCode: 500, body: "Internal error" };
     }
   } else {
     try {
-      const spaces = scanSpaces({ ddbClient });
-      console.log(JSON.stringify(spaces));
-      return { statusCode: 201, body: JSON.stringify(spaces) };
+      response = await scanSpaces({ ddbClient });
+
+      const unmarshalledSpaces = response.Items.map((space) => {
+        return unmarshall(space);
+      });
+      return { statusCode: 201, body: JSON.stringify(unmarshalledSpaces) };
     } catch (error) {
       console.error(error);
+      return { statusCode: 500, body: "Internal error" };
     }
   }
 };

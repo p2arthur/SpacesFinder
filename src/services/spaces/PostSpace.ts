@@ -16,7 +16,7 @@ const postSpaces = async (
     const result = await ddbClient.send(
       new PutItemCommand({
         TableName: process.env.TABLE_NAME,
-        Item: { id: { S: randomId }, location: { S: item.location } },
+        Item: { id: { S: randomId }, location: { S: item.location } }, //This is called Marshalling,
       })
     );
 
