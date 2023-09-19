@@ -80,7 +80,9 @@ const getSpaces = async ({
     }
   } else {
     try {
+      console.log("Scan spaces");
       response = await scanSpaces({ ddbClient });
+      console.log("Scan response", response);
 
       const unmarshalledSpaces = response.Items.map((space) => {
         return unmarshall(space);

@@ -12,3 +12,5 @@ Content-Type: application/json
     "location":"Vancouver"
 }
 ###
+DELETE https://2e0b726te4.execute-api.sa-east-1.amazonaws.com/prod/spaces?id=343345
+###

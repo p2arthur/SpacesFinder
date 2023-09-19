@@ -37,8 +37,15 @@ const updateSpaces = async ({
         ReturnValues: "UPDATED_NEW",
       })
     );
-
-    return { statusCode: 200, body: JSON.stringify(updateResult.Attributes) };
+    if (updateResult.Attributes) {
+      return { statusCode: 200, body: JSON.stringify(updateResult.Attributes) };
+    }
+    return {
+      statusCode: 404,
+      body: JSON.stringify(
+        "Could not find a space with the requested Space Id"
+      ),
+    };
   } else {
     return {
       statusCode: 400,
