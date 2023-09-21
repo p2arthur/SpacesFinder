@@ -1,4 +1,3 @@
-import { v4 } from "uuid";
 import { handler } from "../src/services/spaces/handler";
 
 const testRequest = async () => {
