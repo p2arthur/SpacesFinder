@@ -1,6 +1,8 @@
 import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { APIGatewayEvent, APIGatewayProxyResult } from "aws-lambda";
 import { v4 } from "uuid";
+import { validateAsSpaceEntry } from "../shared/DataValidator";
+import { marshall } from "@aws-sdk/util-dynamodb";
 
 const postSpaces = async (
   event: APIGatewayEvent,
@@ -13,10 +15,12 @@ const postSpaces = async (
   if (item) {
     item.id = randomId;
 
+    validateAsSpaceEntry(item);
+
     const result = await ddbClient.send(
       new PutItemCommand({
         TableName: process.env.TABLE_NAME,
-        Item: { id: { S: randomId }, location: { S: item.location } }, //This is called Marshalling,
+        Item: marshall(item), //This is called Marshalling,
       })
     );
 
