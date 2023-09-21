@@ -6,6 +6,8 @@ class MissingFieldError extends Error {
   }
 }
 
+class JsonError extends Error {}
+
 const validateAsSpaceEntry = (arg: any) => {
   if ((arg as SpaceEntryInterface).location === undefined) {
     throw new MissingFieldError("location");
@@ -18,4 +20,4 @@ const validateAsSpaceEntry = (arg: any) => {
   }
 };
 
-export { validateAsSpaceEntry, MissingFieldError };
+export { validateAsSpaceEntry, MissingFieldError, JsonError };

@@ -2,15 +2,23 @@ GET https://2e0b726te4.execute-api.sa-east-1.amazonaws.com/prod/spaces
 ###
 POST https://2e0b726te4.execute-api.sa-east-1.amazonaws.com/prod/spaces
 content-type: application/json
+
 {
-    "location":"London"
+    "location":"Dubai2",
+    "name": "Dubai workspace2"
 }
+
 ###
-PUT https://2e0b726te4.execute-api.sa-east-1.amazonaws.com/prod/spaces?id=343345
+GET https://2e0b726te4.execute-api.sa-east-1.amazonaws.com/prod/spaces?id=1adf6645-f683-4cc0-9027-e0118d8819a8
+
+###
+PUT https://2e0b726te4.execute-api.sa-east-1.amazonaws.com/prod/spaces?id=1adf6645-f683-4cc0-9027-e0118d8819a8
 Content-Type: application/json
+
 {
-    "location":"Vancouver"
+    "location":"Manchester updated"
 }
+
 ###
-DELETE https://2e0b726te4.execute-api.sa-east-1.amazonaws.com/prod/spaces?id=343345
+DELETE https://2e0b726te4.execute-api.sa-east-1.amazonaws.com/prod/spaces?id=af578104-f593-4732-92c8-f2952749dc11
 ###
