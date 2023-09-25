@@ -4,6 +4,7 @@ import {
   PutItemCommand,
   UpdateItemCommand,
 } from "@aws-sdk/client-dynamodb";
+import { hasAdminGroup } from "../../infra/Utils";
 
 interface UpdateSpacesHandlerInterface {
   event: APIGatewayEvent;
@@ -19,6 +20,15 @@ const updateSpaces = async ({
   event,
   ddbClient,
 }: UpdateSpacesHandlerInterface): Promise<APIGatewayProxyResult> => {
+  const isAdmin = hasAdminGroup(event);
+
+  if (!isAdmin) {
+    return {
+      statusCode: 401,
+      body: JSON.stringify("Non admin users can't update spaces"),
+    };
+  }
+
   if (event.queryStringParameters.id && event.body) {
     const { id: spaceId } = event.queryStringParameters;
     const { body } = event;

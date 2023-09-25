@@ -54,12 +54,6 @@ const getSpaces = async ({
   event,
   ddbClient,
 }: GetSpacesHandlerInterface): Promise<APIGatewayProxyResult> => {
-  const isAdmin = hasAdminGroup(event);
-
-  if (!isAdmin) {
-    return { statusCode: 401, body: JSON.stringify("User not authorized") };
-  }
-
   let response: any;
   if (event.queryStringParameters) {
     const { id } = event.queryStringParameters;
