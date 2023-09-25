@@ -7,7 +7,6 @@ import {
 } from "@aws-sdk/client-dynamodb";
 import { APIGatewayProxyResult, APIGatewayEvent } from "aws-lambda";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
-import { hasAdminGroup } from "../../infra/Utils";
 
 interface GetSpacesHandlerInterface {
   event: APIGatewayEvent;

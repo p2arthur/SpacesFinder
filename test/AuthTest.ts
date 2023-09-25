@@ -5,7 +5,9 @@ const testAuth = async () => {
 
   const loginResult = await service.login("p2arthur", "*420420Rabelo");
 
-  console.log(loginResult.getSignInUserSession().getIdToken().getJwtToken());
+  console.log(
+    loginResult.getSignInUserSession().getAccessToken().getJwtToken()
+  );
 };
 
 testAuth();
