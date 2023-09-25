@@ -36,7 +36,11 @@ export class ApiStack extends Stack {
     };
 
     const spacesResource = api.root.addResource("spaces");
-    spacesResource.addMethod("GET", props.spacesLambdaIntegration);
+    spacesResource.addMethod(
+      "GET",
+      props.spacesLambdaIntegration,
+      optionsWithAuth
+    );
     spacesResource.addMethod(
       "POST",
       props.spacesLambdaIntegration,
