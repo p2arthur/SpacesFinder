@@ -29,6 +29,7 @@
     "@aws-sdk/client-s3": "^3.410.0",
     "@aws-sdk/credential-providers": "^3.418.0",
     "@aws-sdk/lib-dynamodb": "^3.306.0",
+    "@aws-sdk/types": "^3.418.0",
     "@aws-sdk/util-dynamodb": "^3.414.0",
     "@types/jest": "^29.5.1",
     "@types/uuid": "^9.0.1",
