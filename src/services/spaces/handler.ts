@@ -5,6 +5,7 @@ import { getSpaces } from "./GetSpaces";
 import { updateSpaces } from "./UpdateSpace";
 import { deleteSpace } from "./DeleteSpace";
 import { JsonError, MissingFieldError } from "../shared/DataValidator";
+import { addCorsHeader } from "../../infra/Utils";
 
 const ddbClient = new DynamoDBClient({});
 
@@ -14,6 +15,7 @@ const handler = async (
 ): Promise<APIGatewayProxyResult> => {
   try {
     let response: APIGatewayProxyResult;
+    addCorsHeader(response);
     switch (event.httpMethod) {
       case "GET":
         response = await getSpaces({ event, ddbClient });
