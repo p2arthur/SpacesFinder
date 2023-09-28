@@ -14,18 +14,23 @@ const handler = async (
   context: Context
 ): Promise<APIGatewayProxyResult> => {
   try {
-    addCorsHeader(response);
     switch (event.httpMethod) {
       case "GET":
         response = await getSpaces({ event, ddbClient });
+        addCorsHeader(response);
+        return response;
       case "POST":
         response = await postSpaces(event, ddbClient);
+        addCorsHeader(response);
+        return response;
       case "PUT":
         response = await updateSpaces({ event, ddbClient });
-        console.log("PUT Response", response);
+        addCorsHeader(response);
+        return response;
       case "DELETE":
         response = await deleteSpace({ event, ddbClient });
-        console.log("DELETE response", response);
+        addCorsHeader(response);
+        return response;
       default:
         break;
     }
@@ -49,9 +54,9 @@ const handler = async (
       statusCode: 500,
       body: JSON.stringify("Error on handler:" + error.message),
     };
-  }
 
-  return response;
+    return response;
+  }
 };
 
 export { handler };
