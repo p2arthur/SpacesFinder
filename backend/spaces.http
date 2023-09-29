@@ -1,0 +1,33 @@
+@url = https://e4dvzevr79.execute-api.sa-east-1.amazonaws.com/prod/
+@token = eyJraWQiOiJIREJ6aXhIUmw1UDc0M0RpTUhaUlhvNExnWElac1FsVUhWb1BYajc1b0U4PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI2ZTg3Nzk0My0xMzQzLTRmMjktYmVhZi01MDRmMzNiOGVmMjgiLCJjb2duaXRvOmdyb3VwcyI6WyJhZG1pbnMiXSwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5zYS1lYXN0LTEuYW1hem9uYXdzLmNvbVwvc2EtZWFzdC0xX3R5NTlDYmkyaCIsImNvZ25pdG86dXNlcm5hbWUiOiJwMmFydGh1ciIsIm9yaWdpbl9qdGkiOiI0ZjI1OWVmMi1mZjQwLTQwMTgtOWZmNy02ODYwNmYwMGYyYjciLCJjb2duaXRvOnJvbGVzIjpbImFybjphd3M6aWFtOjo2NzM1NzAzMTM3Njc6cm9sZVwvQXV0aFN0YWNrLUNvZ25pdG9BZG1pblJvbGU0QzEwRkJBNC0xSk9IWjkxSjU2T1JaIl0sImF1ZCI6IjUzazlrY2YzNmE4dDlvZjZxdGtibzg3NXBuIiwiZXZlbnRfaWQiOiJjZGIyMDc3OS1iZmZlLTQzMDEtYTgxMy05Y2ZhMDU2YTAxMGQiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTY5NTkzODQ5NSwiZXhwIjoxNjk1OTQyMDk1LCJpYXQiOjE2OTU5Mzg0OTUsImp0aSI6IjBmM2U0YjFkLTJmOTAtNGVhYS1iMDdmLTI2OTkzMWZiMmY3ZSIsImVtYWlsIjoiYXJ0aHVycmFiZWxvcHJvQGdtYWlsLmNvbSJ9.DXDCdYC3k5sIWq5QMuNBWK2-vEUmnrDvSh6ci4iQX5yr17bkNsbnJ7-gWSdp3WtZDDKxNfPdMx750_NWJ6RiCJ-xgVfgd3Y92z1QY5r193yfUacp8i1T_Ce4YEyFtzMi-nOfoQS_oIoaepr6n4q_4ycBfMBfZdS_iqvzNJsA3RmEqcm8d0faEY_1n9iW4C4YOzsWJYWyulnB6j75OJrJEmw0GzCQoSK6U75KkVFVeCdVLLFofER0M41-6_6TFLi7WH3Hfc7oz2g7ZDloZp-gG-pjDWjE_wF2GlZGjCf0AVYYK2Jr8J6Oypdk8EqMUjLdt03IHX72mQJlKi5JMubSZw
+
+
+GET {{url}}/spaces
+Authorization: {{token}}
+###
+
+POST {{url}}/spaces
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "location": "Sobradinho",
+    "name": "Dubai workspace2"
+}
+
+
+###
+GET {{url}}/spaces?id=1adf6645-f683-4cc0-9027-e0118d8819a8
+
+###
+PUT {{url}}/spaces?id=1adf6645-f683-4cc0-9027-e0118d8819a8
+Content-Type: application/json
+
+{
+    "location":"Manchester updated"
+}
+
+###
+DELETE {{url}}/spaces?id=09bf6f07-cba6-4178-bab7-bf47a512d1ac
+Authorization: {{token}}
+###

@@ -8,29 +8,27 @@ import { JsonError, MissingFieldError } from "../shared/DataValidator";
 import { addCorsHeader } from "../../infra/Utils";
 
 const ddbClient = new DynamoDBClient({});
-let response: APIGatewayProxyResult;
+
 const handler = async (
   event: APIGatewayEvent,
   context: Context
 ): Promise<APIGatewayProxyResult> => {
+  let response: APIGatewayProxyResult;
   try {
     switch (event.httpMethod) {
       case "GET":
         response = await getSpaces({ event, ddbClient });
-        addCorsHeader(response);
-        return response;
+        break;
       case "POST":
         response = await postSpaces(event, ddbClient);
-        addCorsHeader(response);
-        return response;
+        break;
       case "PUT":
         response = await updateSpaces({ event, ddbClient });
-        addCorsHeader(response);
-        return response;
+        break;
+
       case "DELETE":
         response = await deleteSpace({ event, ddbClient });
-        addCorsHeader(response);
-        return response;
+        break;
       default:
         break;
     }
@@ -54,9 +52,9 @@ const handler = async (
       statusCode: 500,
       body: JSON.stringify("Error on handler:" + error.message),
     };
-
-    return response;
   }
+  addCorsHeader(response);
+  return response;
 };
 
 export { handler };
