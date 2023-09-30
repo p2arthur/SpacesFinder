@@ -8,20 +8,20 @@ const NavBar = ({ username }: navProps) => {
   const links = ["profile", "create-space", "spaces"];
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-gray-950">
       <div className="flex-1">
-        <NavLink to="/">
-          <a className="btn btn-ghost normal-case text-xl">Spaces Finder</a>
+        <NavLink className="btn btn-ghost normal-case text-xl" to="/">
+          Spaces Finder
         </NavLink>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1 space-x-5">
-          {links.map((link) => (
-            <li>
+          {links.map((link, index) => (
+            <li key={index}>
               <NavLink to={`/${link}`}>{link}</NavLink>
             </li>
           ))}
-          <li className="bg-gray-950 rounded-lg">
+          <li>
             <NavLink to={username ? "/logout" : "/login"}>
               {username ? username : "login"}
             </NavLink>
