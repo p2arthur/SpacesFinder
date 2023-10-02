@@ -3,11 +3,14 @@ import NavBar from "./components/NavBar";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import LoginComponent from "./components/LoginComponent";
 import { AuthService } from "./services/AuthService";
+import CreateSpaces from "./components/spaces/CreateSpaces";
+import { DataServices } from "./services/DataServices";
 
 function App() {
   const [userName, setUsername] = useState<string | undefined>();
 
   const authService = new AuthService();
+  const dataService = new DataServices();
 
   const router = createBrowserRouter([
     {
@@ -33,7 +36,7 @@ function App() {
         { path: "/profile", element: <div className="mx-6">user profile</div> },
         {
           path: "/create-space",
-          element: <div className="mx-6">create space</div>,
+          element: <CreateSpaces dataServices={dataService} />,
         },
         { path: "/spaces", element: <div className="mx-6">Spaces list</div> },
       ],

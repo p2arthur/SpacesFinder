@@ -48,7 +48,7 @@ const LoginComponent = ({ authService, setUserNameCallback }: LoginProps) => {
             onChange={(event) => setUserName(event.target.value)}
           />
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             className="input input-bordered w-full max-w-xs"
             onChange={(event) => setPassword(event.target.value)}
