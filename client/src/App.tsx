@@ -10,7 +10,7 @@ function App() {
   const [userName, setUsername] = useState<string | undefined>();
 
   const authService = new AuthService();
-  const dataService = new DataServices();
+  const dataService = new DataServices(authService);
 
   const router = createBrowserRouter([
     {
