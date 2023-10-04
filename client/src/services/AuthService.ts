@@ -4,7 +4,7 @@ import { AuthStack } from "../../../backend/outputs.json";
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-providers";
 
-const awsRegion = "eu-west-1";
+const awsRegion = "sa-east-1";
 
 Amplify.configure({
   Auth: {
@@ -17,10 +17,12 @@ Amplify.configure({
   },
 });
 
+let jwtToken;
+
 export class AuthService {
   private user: CognitoUser | undefined;
   private jwtToken: string | undefined;
-  private temporaryCredentials: object | undefined;
+  private temporaryCredentials: Object | undefined;
 
   public async login(
     userName: string,
@@ -28,22 +30,27 @@ export class AuthService {
   ): Promise<Object | undefined> {
     try {
       this.user = (await Auth.signIn(userName, password)) as CognitoUser;
-      this.jwtToken = this.user
-        ?.getSignInUserSession()
-        ?.getIdToken()
-        .getJwtToken();
+      jwtToken = this.user?.getSignInUserSession()?.getIdToken().getJwtToken();
+
+      console.log(this.jwtToken);
+
+      console.log(this.user);
+
       return this.user;
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       return undefined;
     }
   }
 
   public async getTemporaryCredentials() {
+    console.log(this.jwtToken);
     if (this.temporaryCredentials) {
+      console.log("temporaray credentials:", this.temporaryCredentials);
       return this.temporaryCredentials;
     }
     this.temporaryCredentials = await this.generateTemporaryCredentials();
+    console.log("temporaray credentials:", this.temporaryCredentials);
     return this.temporaryCredentials;
   }
 
@@ -53,18 +60,20 @@ export class AuthService {
 
   private async generateTemporaryCredentials() {
     const cognitoIdentityPool = `cognito-idp.${awsRegion}.amazonaws.com/${AuthStack.SpacesUserPoolId}`;
+
+    console.log("cognito identity pool", cognitoIdentityPool);
+
+    console.log("jwtToken from generate temporary credentials", this.jwtToken);
+
     const cognitoIdentity = new CognitoIdentityClient({
       credentials: fromCognitoIdentityPool({
-        clientConfig: {
-          region: awsRegion,
-        },
+        clientConfig: { region: awsRegion },
         identityPoolId: AuthStack.SpacesIdentityPoolId,
-        logins: {
-          [cognitoIdentityPool]: this.jwtToken!,
-        },
+        logins: { [cognitoIdentityPool]: jwtTokenVar! },
       }),
     });
     const credentials = await cognitoIdentity.config.credentials();
+    this.temporaryCredentials = credentials;
     return credentials;
   }
 }
